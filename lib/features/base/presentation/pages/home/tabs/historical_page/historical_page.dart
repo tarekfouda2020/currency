@@ -17,99 +17,59 @@ class _HistoricalPageState extends State<HistoricalPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(children: [
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(
-                        title: "Base Country", color: MyColors.black, size: 13),
-                    GenericTextField(
-                      controller: controller.baseCurrency,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      fieldTypes: FieldTypes.normal,
-                      type: TextInputType.text,
-                      action: TextInputAction.next,
-                      validate: (v) {},
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 10),
+          BuildHistoricalForm(controller: controller),
+          BlocBuilder<GenericBloc<List<HistoryDate>>,
+                  GenericState<List<HistoryDate>>>(
+              bloc: controller.historicalCubit,
+              builder: (context, state) {
+                if (state is GenericUpdateState) {
+                  return Flexible(
+                    child: ListView.builder(
+                      itemCount: state.data.length,
+                      itemBuilder: (cxt, index) {
+                        return Container(
+                          padding: const EdgeInsets.all(7),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 20),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: MyColors.greyWhite.withOpacity(.1)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MyText(
+                                  title: state.data[index].date,
+                                  color: MyColors.black,
+                                  size: 13),
+                              Column(
+                                children: List.generate(
+                                    state.data[index].data.length,
+                                    (i) => Row(
+                                          children: [
+                                            MyText(
+                                                title: state
+                                                    .data[index].data[i].value,
+                                                color: MyColors.black,
+                                                size: 9),
+                                            const SizedBox(width: 10),
+                                            MyText(
+                                                title: state
+                                                    .data[index].data[i].code,
+                                                color: MyColors.black,
+                                                size: 9),
+                                          ],
+                                        )),
+                              )
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(
-                        title: "Currencies", color: MyColors.black, size: 13),
-                    GenericTextField(
-                      controller: controller.currencies,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      fieldTypes: FieldTypes.normal,
-                      type: TextInputType.text,
-                      action: TextInputAction.next,
-                      validate: (v) {},
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 10),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(title: "From Date", color: MyColors.black, size: 13),
-                    GenericTextField(
-                      controller: controller.fromDate,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      fieldTypes: FieldTypes.normal,
-                      type: TextInputType.text,
-                      action: TextInputAction.next,
-                      validate: (v) {},
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 10),
-                    ),
-                  ],
-                ),
-              ),
-             const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(title: "To Date", color: MyColors.black, size: 13),
-                    GenericTextField(
-                      controller: controller.toDate,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      fieldTypes: FieldTypes.normal,
-                      type: TextInputType.text,
-                      action: TextInputAction.next,
-                      validate: (v) {},
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 10),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          DefaultButton(
-            textColor: MyColors.white,
-            color: MyColors.black,
-            width: 100,
-            title: "Send",
-            onTap: () => controller.getHistorical(),
-          ),
+                  );
+                } else {
+                  return Container();
+                }
+              })
         ]),
       ),
     );

@@ -5,18 +5,13 @@ class HistoricalController {
   TextEditingController currencies = TextEditingController();
   TextEditingController fromDate = TextEditingController();
   TextEditingController toDate = TextEditingController();
-  GenericBloc<Map<String, Map<String, num>>?> historicalCubit =
-      GenericBloc(null);
+  GenericBloc<List<HistoryDate>> historicalCubit = GenericBloc([]);
 
   Future<void> getHistorical() async {
     HistoricalParams params = _historicalParams();
-    await GetHistorical().call(params).then((value) {
-      if (value != null) {
-        print(">>>>>>>>>>$value");
-        historicalCubit.onUpdateData(value);
-        print(">>>>>>>>>>${historicalCubit.state.data}");
-      }
-    });
+     GetHistorical().call(params).then((value) {
+       historicalCubit.onUpdateData(value);
+     });
   }
 
   HistoricalParams _historicalParams() {

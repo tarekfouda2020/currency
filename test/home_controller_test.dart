@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_tdd/features/base/data/models/support_data_model/support_data_model.dart';
-import 'package:flutter_tdd/features/base/presentation/pages/home/home_main/home_main_imports.dart';
+import 'package:flutter_tdd/features/base/presentation/pages/home/tabs/home_main/home_main_imports.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

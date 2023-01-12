@@ -10,11 +10,6 @@ class HomeMainController {
     });
   }
 
-  Future<TargetDataModel> getTargetData(String supportCode) async {
-    var data = await GetTargetData().call(supportCode);
-    return data!;
-  }
-
   String currencyToEmoji(String currencyFlag) {
     // 0x1F1E6 is Regional Indicator Symbol Letter A
     // See: https://en.wikipedia.org/wiki/Regional_Indicator_Symbol

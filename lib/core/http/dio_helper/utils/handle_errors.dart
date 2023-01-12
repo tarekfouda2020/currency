@@ -70,10 +70,10 @@ class HandleErrors {
 
   Either<ServerFailure, Response> statusError(
       Response response, Function(dynamic) errorFunc) {
-    if (response.data["result"] != "success") {
-      CustomToast.showSnakeBar(response.data["message"].toString());
-      return Left(ServerFailure());
-    }
+    // if (response.data["result"] != "success") {
+    //   CustomToast.showSnakeBar(response.data["message"].toString());
+    //   return Left(ServerFailure());
+    // }
     return Right(response);
   }
 

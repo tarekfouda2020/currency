@@ -3,8 +3,8 @@ import 'package:flutter_tdd/core/errors/failures.dart';
 import 'package:flutter_tdd/core/http/generic_http/api_names.dart';
 import 'package:flutter_tdd/core/http/generic_http/generic_http.dart';
 import 'package:flutter_tdd/core/http/models/http_request_model.dart';
+import 'package:flutter_tdd/features/base/data/models/history_model/history_model.dart';
 import 'package:flutter_tdd/features/base/data/models/support_data_model/support_data_model.dart';
-import 'package:flutter_tdd/features/base/data/models/target_data_model/target_data_model.dart';
 import 'package:flutter_tdd/features/base/domain/entites/historical_entity.dart';
 import 'package:injectable/injectable.dart';
 
@@ -28,30 +28,23 @@ class ImplHomeRemoteDataSource extends HomeRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, TargetDataModel>> getTargetData(String param) async {
-    HttpRequestModel model = HttpRequestModel(
-        url: ApiNames.enriched + param,
-        requestMethod: RequestMethod.get,
-        responseType: ResType.model,
-        refresh: false,
-        responseKey: (data) => data['target_data'],
-        toJsonFunc: (json) {
-          return TargetDataModel.fromJson(json);
-        });
-    return await GenericHttpImpl<TargetDataModel>()(model);
-  }
-
-  @override
-  Future<Either<Failure, dynamic>> getHistorical(HistoricalParams param) async {
+  Future<Either<Failure, List<HistoryDate>>> getHistorical(HistoricalParams param) async {
     String params =
         "&currencies=${param.currencies}&base_currency=${param.baseCurrency}&date_from=${param.dateFrom}&date_to=${param.dateTo}";
     HttpRequestModel model = HttpRequestModel(
       url: ApiNames.historical + params,
       requestMethod: RequestMethod.get,
-      responseType: ResType.type,
+      responseType: ResType.model,
       refresh: false,
-      responseKey: (data) => data['data'],
+      responseKey: (data) => data["data"],
+      toJsonFunc: (json){
+       final List<HistoryDate> data = [];
+        (json as Map<String, dynamic>).forEach((key, value) {
+          data.add(HistoryDate.fromJson(value, key));
+        });
+        return data;
+      }
     );
-    return await GenericHttpImpl<dynamic>()(model);
+    return await GenericHttpImpl<List<HistoryDate>>()(model);
   }
 }
