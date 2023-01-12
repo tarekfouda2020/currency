@@ -8,7 +8,13 @@ class HistoricalPage extends StatefulWidget {
 }
 
 class _HistoricalPageState extends State<HistoricalPage> {
-  HistoricalController controller = HistoricalController();
+  final HistoricalController controller = HistoricalController();
+
+  @override
+  void initState() {
+    controller.initDate();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

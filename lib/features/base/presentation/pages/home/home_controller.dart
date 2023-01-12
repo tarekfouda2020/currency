@@ -9,8 +9,8 @@ class HomeController {
 
   List<IconData> tabs = [
     Icons.home,
-    Icons.map_outlined,
-    Icons.face,
+    Icons.history,
+    Icons.swap_horiz_outlined,
   ];
 
 
