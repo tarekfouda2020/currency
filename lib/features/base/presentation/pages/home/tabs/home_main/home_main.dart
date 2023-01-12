@@ -20,8 +20,8 @@ class _HomeMainState extends State<HomeMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const DefaultAppBar(title: "Currency", showBack: false),
-      body: BlocBuilder<GenericBloc<List<List<String>>>,
-              GenericState<List<List<String>>>>(
+      body: BlocBuilder<GenericBloc<List<SupportDataModel>>,
+              GenericState<List<SupportDataModel>>>(
           bloc: controller.supportedCubit,
           builder: (context, state) {
             if (state is GenericUpdateState) {
@@ -30,7 +30,7 @@ class _HomeMainState extends State<HomeMain> {
                   state.data.length,
                   (index) {
                     return BuildCurrencyDetailsItem(
-                      list: state.data[index],
+                      model: state.data[index],
                       controller: controller,
                     );
                   },

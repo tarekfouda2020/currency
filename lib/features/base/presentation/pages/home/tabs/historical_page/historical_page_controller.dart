@@ -50,7 +50,7 @@ class HistoricalController {
 
   Future<List<String>> getSupported() async {
     return await GetSupported().call(false).then((value) {
-      return value?.supportedCodes.map((e) => e.first).toList() ?? [];
+      return value.map((e) => e.currency).toList();
     });
   }
 

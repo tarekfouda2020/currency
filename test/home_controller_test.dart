@@ -18,9 +18,10 @@ void main() {
 
   group('get supported currencies', () {
     var jsonData = readJson('currencies.json');
-    final currenciesLst = SupportDataModel.fromJson(
-      json.decode(jsonData),
-    );
+    List<SupportDataModel> currenciesLst = [];
+    json.decode(jsonData).forEach((key, value) {
+      currenciesLst.add(SupportDataModel.fromJson(value, key));
+    });
     test(
       'should return list of currencies model when the response code is 200',
       () async {
@@ -39,7 +40,7 @@ void main() {
       'should throw a server exception when the response is error',
       () async {
         // arrange
-        when(baseRepo.getSupported()).thenAnswer((_) async => null);
+        when(baseRepo.getSupported()).thenAnswer((_) async => []);
 
         // act
         final call = await baseRepo.getSupported();

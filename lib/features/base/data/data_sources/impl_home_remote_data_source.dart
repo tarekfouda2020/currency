@@ -13,26 +13,29 @@ import 'home_remote_data_source.dart';
 @Injectable(as: HomeRemoteDataSource)
 class ImplHomeRemoteDataSource extends HomeRemoteDataSource {
   @override
-  Future<Either<Failure, SupportDataModel>> getSupported(bool param) async {
+  Future<Either<Failure, List<SupportDataModel>>> getSupported(bool param) async {
     HttpRequestModel model = HttpRequestModel(
       url: ApiNames.supported,
       requestMethod: RequestMethod.get,
       responseType: ResType.model,
       refresh: false,
-      responseKey: (data) => data,
+      responseKey: (data) => data["data"],
       toJsonFunc: (json) {
-        return SupportDataModel.fromJson(json);
+        final List<SupportDataModel> data = [];
+        (json as Map<String, dynamic>).forEach((key, value) {
+          data.add(SupportDataModel.fromJson(value, key));
+        });
+        return data;
       },
     );
-    return await GenericHttpImpl<SupportDataModel>()(model);
+    return await GenericHttpImpl<List<SupportDataModel>>()(model);
   }
 
   @override
   Future<Either<Failure, List<HistoryDate>>> getHistorical(HistoricalParams param) async {
-    String params =
-        "&currencies=${param.currencies}&base_currency=${param.baseCurrency}&date_from=${param.dateFrom}&date_to=${param.dateTo}";
+
     HttpRequestModel model = HttpRequestModel(
-      url: ApiNames.historical + params,
+      url: ApiNames.historical(param),
       requestMethod: RequestMethod.get,
       responseType: ResType.model,
       refresh: false,

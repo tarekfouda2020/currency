@@ -1,10 +1,12 @@
-class ApiNames {
-  static const String countryBaseUrl =
-      "https://v6.exchangerate-api.com/v6/fab213b1e87fc41d0a9453ff/";
+import 'package:flutter_tdd/features/base/domain/entites/historical_entity.dart';
 
-  static const String supported = "${countryBaseUrl}codes";
-  static const String enriched = "${countryBaseUrl}enriched/GBP/";
-  static const String historical = "https://api.freecurrencyapi.com/v1/historical?apikey=5AG5AnL6th3LZtEKsdKRKrcnCHlDY9WeAaBsXWZk";
+class ApiNames {
+  static const String key = "?apikey=5AG5AnL6th3LZtEKsdKRKrcnCHlDY9WeAaBsXWZk";
+  static const String baseUrl =
+      "https://api.freecurrencyapi.com/v1/";
+
+
+
+  static const String supported = "${baseUrl}currencies$key&currencies=";
+  static String historical(HistoricalParams param) => "${baseUrl}historical$key&currencies=${param.currencies}&base_currency=${param.baseCurrency}&date_from=${param.dateFrom}&date_to=${param.dateTo}";
 }
-// https://api.freecurrencyapi.com/v1/historical?apikey=&currencies= &date_from=&date_to=
-// https://api.freecurrencyapi.com/v1/historical?apikey=5AG5AnL6th3LZtEKsdKRKrcnCHlDY9WeAaBsXWZk&currencies= &date_from= &date_to=

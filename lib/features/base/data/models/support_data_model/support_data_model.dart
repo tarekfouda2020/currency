@@ -1,16 +1,17 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class SupportDataModel{
 
-part 'support_data_model.freezed.dart';
-part 'support_data_model.g.dart';
+  final String currency;
+  final String symbol;
+  final String name;
 
-@freezed
-class SupportDataModel with _$SupportDataModel{
-  @JsonSerializable(explicitToJson: true)
-  factory SupportDataModel({
-@JsonKey(name: "supported_codes") required List<List<String>> supportedCodes,
-  }) = _SupportDataModel;
+  SupportDataModel({required this.currency, required this.symbol, required this.name});
 
+  factory SupportDataModel.fromJson(Map<String, dynamic> json,String currency) {
+    return SupportDataModel(
+      currency: currency,
+      name: json["name"],
+      symbol: json["symbol"],
+    );
+  }
 
-  factory SupportDataModel.fromJson(Map<String, dynamic> json) =>
-      _$SupportDataModelFromJson(json);
 }

@@ -6,7 +6,7 @@ import 'package:flutter_tdd/features/base/domain/entites/historical_entity.dart'
 
 
 abstract class BaseRepository {
-  Future<Either<Failure, SupportDataModel>> getSupported(bool param);
+  Future<Either<Failure, List<SupportDataModel>>> getSupported(bool param);
 
 
   Future<Either<Failure, List<HistoryDate>>> getHistorical(HistoricalParams param);

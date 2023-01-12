@@ -1,11 +1,11 @@
 part of 'home_main_widgets_imports.dart';
 
 class BuildCurrencyDetailsItem extends StatelessWidget {
-  final List<String> list;
+  final SupportDataModel model;
   final HomeMainController controller;
 
   const BuildCurrencyDetailsItem(
-      {Key? key, required this.list, required this.controller})
+      {Key? key, required this.model, required this.controller})
       : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class BuildCurrencyDetailsItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            controller.currencyToEmoji(list.first),
+            controller.currencyToEmoji(model.currency),
             style: const TextStyle(
               fontSize: 25,
             ),
@@ -28,10 +28,10 @@ class BuildCurrencyDetailsItem extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: MyText(title: list.last, color: MyColors.black, size: 14),
+              child: MyText(title: model.name, color: MyColors.black, size: 14),
             ),
           ),
-          MyText(title: list.first, color: MyColors.black, size: 14)
+          MyText(title: model.symbol, color: MyColors.black, size: 14)
         ],
       ),
     );
