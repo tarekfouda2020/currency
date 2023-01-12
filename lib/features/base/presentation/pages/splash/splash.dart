@@ -12,16 +12,18 @@ class _SplashState extends State<Splash> {
 
   @override
   void initState() {
+    controller.init(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-
-        ],
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          "Currency App",
+          style: TextStyle(fontSize: 20, color: MyColors.primary),
+        ),
       ),
     );
   }
