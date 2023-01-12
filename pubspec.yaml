@@ -56,6 +56,7 @@ dependencies:
   injectable: ^1.5.3
   flutter_screenutil: ^5.5.4
   animated_bottom_navigation_bar: ^1.1.0
+  widget_and_text_animator: ^1.0.9
 
 
 

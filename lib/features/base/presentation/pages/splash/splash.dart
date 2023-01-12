@@ -18,11 +18,21 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text(
-          "Currency App",
-          style: TextStyle(fontSize: 20, color: MyColors.primary),
+        child: TextAnimator(
+          'Currency App',
+          initialDelay: const Duration(milliseconds: 1000),
+          style: GoogleFonts.lato(
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w700,
+              letterSpacing: -2,
+              fontSize: 28,
+            ),
+          ),
+          incomingEffect: WidgetTransitionEffects.incomingScaleDown(
+            duration: const Duration(milliseconds: 600),
+          ),
         ),
       ),
     );

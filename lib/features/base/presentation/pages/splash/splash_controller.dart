@@ -5,7 +5,7 @@ class SplashController {
 
   void init(BuildContext context){
     InitCustomPackages.instance.initCustomWidgets(language: "en");
-    Future.delayed(const Duration(milliseconds: 2000),(){
+    Future.delayed(const Duration(milliseconds: 3000),(){
       AutoRouter.of(context).push(const HomeRoute());
     });
   }
