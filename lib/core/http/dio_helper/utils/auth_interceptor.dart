@@ -62,7 +62,7 @@ class AuthInterceptor extends Interceptor {
       final resistanceAccessToken = pref.getString("token");
 
       RequestBodyModel params = RequestBodyModel(
-        url: ApiNames.ITEMS,
+        url: '',
         body: {
           'accessToken': resistanceAccessToken,
           'refreshToken': refreshToken,
