@@ -6,18 +6,14 @@ class HomeController {
   late TabController tabController;
   late Animation<double> animation;
   late CurvedAnimation curve;
-  GenericBloc<List<List<String>>> supportedCubit = GenericBloc([]);
+
   List<IconData> tabs = [
     Icons.home,
     Icons.map_outlined,
     Icons.face,
   ];
 
-  Future<void> getSupported() async {
-    await GetSupported()
-        .call(false)
-        .then((value) => supportedCubit.onUpdateData(value));
-  }
+
 
   void initBottomNavigation(TickerProvider ticker) {
     tabController = TabController(length: 3, vsync: ticker);
