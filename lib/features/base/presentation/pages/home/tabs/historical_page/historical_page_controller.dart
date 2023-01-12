@@ -17,6 +17,7 @@ class HistoricalController {
     targetCurrency = "EUR";
     toDate.text =  DateFormat("yyyy-MM-dd","en").format(DateTime.now().subtract(const Duration(days: 1)));
     fromDate.text = DateFormat("yyyy-MM-dd","en").format(DateTime.now().subtract(const Duration(days: 7)));
+    historicalCubit.onUpdateData([]);
   }
 
   void onchangeBaseCurrency(String? value) {
@@ -27,13 +28,10 @@ class HistoricalController {
     targetCurrency = value;
   }
 
-  Future<void> getHistorical() async {
-    if (formKey.currentState!.validate()) {
-      HistoricalParams params = _historicalParams();
-      GetHistorical().call(params).then((value) {
-        historicalCubit.onUpdateData(value);
-      });
-    }
+  Future<List<String>> getSupported() async {
+    return await GetSupported().call(false).then((value) {
+      return value.map((e) => e.currency).toList();
+    });
   }
 
   Future<void> selectDate(BuildContext context, GenericBloc<String> cubit)async {
@@ -48,10 +46,14 @@ class HistoricalController {
     }
   }
 
-  Future<List<String>> getSupported() async {
-    return await GetSupported().call(false).then((value) {
-      return value.map((e) => e.currency).toList();
-    });
+  Future<void> getHistorical() async {
+    if (formKey.currentState!.validate()) {
+      historicalCubit.onUpdateToInitState([]);
+      HistoricalParams params = _historicalParams();
+      GetHistorical().call(params).then((value) {
+        historicalCubit.onUpdateData(value);
+      });
+    }
   }
 
   HistoricalParams _historicalParams() {

@@ -19,4 +19,10 @@ class ImplBaseRepository extends BaseRepository {
   Future<Either<Failure, List<HistoryDate>>> getHistorical(HistoricalParams param) async {
     return await getIt.get<HomeRemoteDataSource>().getHistorical(param);
   }
+
+  @override
+  Future<Either<Failure, String>> convert(HistoricalParams param)async {
+    return await getIt.get<HomeRemoteDataSource>().convert(param);
+
+  }
 }

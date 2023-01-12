@@ -5,8 +5,14 @@ class ApiNames {
   static const String baseUrl =
       "https://api.freecurrencyapi.com/v1/";
 
-
-
   static const String supported = "${baseUrl}currencies$key&currencies=";
-  static String historical(HistoricalParams param) => "${baseUrl}historical$key&currencies=${param.currencies}&base_currency=${param.baseCurrency}&date_from=${param.dateFrom}&date_to=${param.dateTo}";
+
+  static String conversion(String base, String target) =>
+      "${baseUrl}latest$key&base_currency=$base&currencies=$target";
+
+  static String historical(HistoricalParams param) =>
+      "${baseUrl}historical$key&currencies=${param.currencies}&base_currency=${param
+          .baseCurrency}&date_from=${param.dateFrom}&date_to=${param.dateTo}";
+
+
 }

@@ -33,21 +33,39 @@ class ImplHomeRemoteDataSource extends HomeRemoteDataSource {
 
   @override
   Future<Either<Failure, List<HistoryDate>>> getHistorical(HistoricalParams param) async {
-
     HttpRequestModel model = HttpRequestModel(
-      url: ApiNames.historical(param),
-      requestMethod: RequestMethod.get,
-      responseType: ResType.model,
-      refresh: false,
-      responseKey: (data) => data["data"],
-      toJsonFunc: (json){
-       final List<HistoryDate> data = [];
-        (json as Map<String, dynamic>).forEach((key, value) {
-          data.add(HistoryDate.fromJson(value, key));
+        url: ApiNames.historical(param),
+        requestMethod: RequestMethod.get,
+        responseType: ResType.model,
+        refresh: true,
+        showLoader: false,
+        responseKey: (data) => data["data"],
+        toJsonFunc: (json) {
+          final List<HistoryDate> data = [];
+          (json as Map<String, dynamic>).forEach((key, value) {
+            data.add(HistoryDate.fromJson(value, key));
+          });
+          return data;
         });
-        return data;
-      }
-    );
     return await GenericHttpImpl<List<HistoryDate>>()(model);
+  }
+
+  @override
+  Future<Either<Failure, String>> convert(HistoricalParams param) async {
+    HttpRequestModel model = HttpRequestModel(
+        url: ApiNames.conversion(param.baseCurrency, param.currencies),
+        requestMethod: RequestMethod.get,
+        responseType: ResType.model,
+        refresh: true,
+        showLoader: false,
+        responseKey: (data) => data["data"],
+        toJsonFunc: (json) {
+          String data = "";
+          (json as Map<String, dynamic>).forEach((key, value) {
+            data = value.toString();
+          });
+          return data;
+        });
+    return await GenericHttpImpl<String>()(model);
   }
 }

@@ -24,10 +24,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         body: TabBarView(
           controller: controller.tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const HomeMain(),
-            const HistoricalPage(),
-            Container(),
+          children: const [
+            HomeMain(),
+            HistoricalPage(),
+            Conversion(),
           ],
         ),
         bottomNavigationBar: BuildBottomNavigationBar(controller: controller),

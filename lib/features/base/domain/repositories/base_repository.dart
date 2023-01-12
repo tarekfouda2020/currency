@@ -11,4 +11,6 @@ abstract class BaseRepository {
 
   Future<Either<Failure, List<HistoryDate>>> getHistorical(HistoricalParams param);
 
+  Future<Either<Failure, String>> convert(HistoricalParams param);
+
 }
