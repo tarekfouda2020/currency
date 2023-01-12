@@ -11,8 +11,8 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: BaseRepository)
 class ImplBaseRepository extends BaseRepository {
   @override
-  Future<Either<Failure, SupportDataModel>> getSupported(params) async {
-    return await getIt.get<HomeRemoteDataSource>().getSupported(params);
+  Future<Either<Failure, SupportDataModel>> getSupported(param) async {
+    return await getIt.get<HomeRemoteDataSource>().getSupported(param);
   }
 
   @override

@@ -3,9 +3,10 @@ part of 'home_main_imports.dart';
 class HomeMainController {
   GenericBloc<List<List<String>>> supportedCubit = GenericBloc([]);
 
-  Future<void> getSupported() async {
-    await GetSupported().call(false).then((value) {
+  Future<SupportDataModel?>? getSupported() async {
+   return await GetSupported().call(false).then((value) {
       supportedCubit.onUpdateData(value?.supportedCodes ?? []);
+      return value;
     });
   }
 
