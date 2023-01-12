@@ -5,6 +5,7 @@ import 'package:flutter_tdd/core/http/generic_http/generic_http.dart';
 import 'package:flutter_tdd/core/http/models/http_request_model.dart';
 import 'package:flutter_tdd/features/base/data/models/support_data_model/support_data_model.dart';
 import 'package:flutter_tdd/features/base/data/models/target_data_model/target_data_model.dart';
+import 'package:flutter_tdd/features/base/domain/entites/historical_entity.dart';
 import 'package:injectable/injectable.dart';
 
 import 'home_remote_data_source.dart';
@@ -38,5 +39,19 @@ class ImplHomeRemoteDataSource extends HomeRemoteDataSource {
           return TargetDataModel.fromJson(json);
         });
     return await GenericHttpImpl<TargetDataModel>()(model);
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> getHistorical(HistoricalParams param) async {
+    String params =
+        "&currencies=${param.currencies}&base_currency=${param.baseCurrency}&date_from=${param.dateFrom}&date_to=${param.dateTo}";
+    HttpRequestModel model = HttpRequestModel(
+      url: ApiNames.historical + params,
+      requestMethod: RequestMethod.get,
+      responseType: ResType.type,
+      refresh: false,
+      responseKey: (data) => data['data'],
+    );
+    return await GenericHttpImpl<dynamic>()(model);
   }
 }

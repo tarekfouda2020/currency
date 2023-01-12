@@ -25,8 +25,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           controller: controller.tabController,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-           const HomeMain(),
-            Container(),
+            const HomeMain(),
+            const HistoricalPage(),
             Container(),
           ],
         ),
