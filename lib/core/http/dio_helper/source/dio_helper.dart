@@ -15,6 +15,7 @@ abstract class DioHelper {
       Dio(
         BaseOptions(
           headers: getIt<DioHeader>().call(),
+          baseUrl: ApiNames.baseUrl,
         ),
       )
         ..interceptors.add(CacheManager()().interceptor)

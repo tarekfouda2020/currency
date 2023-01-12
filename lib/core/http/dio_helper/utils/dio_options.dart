@@ -7,7 +7,7 @@ class DioOptions{
 
   Options call({bool forceRefresh = true}) {
     return buildCacheOptions(
-      const Duration(hours: 3),
+      const Duration(days: 3),
       maxStale: const Duration(days: 7),
       forceRefresh: forceRefresh,
       options: Options(extra: {}),
