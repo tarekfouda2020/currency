@@ -1,7 +1,6 @@
 part of 'home_imports.dart';
 
 class HomeController {
-
   final GenericBloc<int> homeTabCubit = GenericBloc(0);
   late AnimationController animationController;
   late TabController tabController;
@@ -14,6 +13,8 @@ class HomeController {
     Icons.face,
   ];
 
+
+
   void initBottomNavigation(TickerProvider ticker) {
     tabController = TabController(length: 3, vsync: ticker);
   }
@@ -24,5 +25,4 @@ class HomeController {
       tabController.animateTo(index);
     }
   }
-
 }

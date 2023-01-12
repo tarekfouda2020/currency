@@ -27,7 +27,6 @@ linter:
     always_declare_return_types: true
     annotate_overrides: true
     join_return_with_assignment: true
-    avoid_dynamic_calls: true
 
 
 # Additional information about this file can be found at
@@ -43,5 +42,4 @@ analyzer:
     always_declare_return_types: warning
     annotate_overrides: warning
     join_return_with_assignment: info
-    avoid_dynamic_calls: warning
 

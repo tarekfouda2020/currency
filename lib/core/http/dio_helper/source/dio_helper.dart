@@ -14,7 +14,6 @@ abstract class DioHelper {
   Dio get dio =>
       Dio(
         BaseOptions(
-            baseUrl: ApiNames.baseUrl,
           headers: getIt<DioHeader>().call(),
         ),
       )
